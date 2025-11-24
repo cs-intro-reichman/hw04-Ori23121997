@@ -41,6 +41,6 @@ public class Primes {
 
         double precent = ((double)(counter+1)/n)*100;
         System.out.println("There are " + (counter+1) + " primes between 2 and " + n 
-       + " ("+ (int)precent +"% are primes)");
+       + " ("+ (int)precent +"%25 are primes)");
     }
 }}

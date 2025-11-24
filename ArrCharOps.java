@@ -67,10 +67,13 @@ public class ArrCharOps {
     /*to get a char
     to check if the char excits */
     public static int indexOf(char[] arr, char ch) {
+        if (arr.length==0) {
+            return -1;
+        }
         int i = 0 ;
         while (charAt(arr, i)!= ch && i<arr.length) {
             i++;
-            if (i==arr.length-1) {
+            if (i==arr.length) {
             return -1;
         }
         } return i;
@@ -80,29 +83,34 @@ public class ArrCharOps {
     /** Same as indexOf(char[], char), but starts the search in the given index.
      */
     public static int indexOf(char[] arr, char ch, int fromIndex) {
-        while (charAt(arr, fromIndex)!= ch && fromIndex<arr.length) {
-            fromIndex++;
-        }if (fromIndex==arr.length) {
+        int res = fromIndex;
+        if (arr.length==0) {
             return -1;
-        }else return fromIndex;
+        }
+        while (charAt(arr, res)!= ch && res<arr.length) {
+            res++;
+        if (res==arr.length) {
+            return -1;
+        }
+        }
+        return res;
     }
 
     /** Returns the index within the given arr of the last occurrence of the given character.
      *  If no such character is found, returns -1.
      */
     public static int lastIndexOf(char[] arr, char ch) {
-        int i = indexOf(arr, ch);
-        if (i==-1){
-            return -1;
+        if (indexOf(arr, ch)==-1) {
+            return-1;
         }
-        if (i !=-1 ) {
-            i = indexOf(arr, ch, i+1);
-            if (i == -1) {
-                return -1;
-            }
+        int i = arr.length-1;
+        while (charAt(arr, i)!= ch) {
+            i--;
         }return i;
+    }
+        
             
-        }
+        
     
 
     /* Returns an array which is the concatanation of the two given arrays.
@@ -138,7 +146,7 @@ public class ArrCharOps {
         }
         int i = beginIndex;
         char [] arr0 = new char[endIndex-beginIndex];
-        while (i < endIndex-1) {
+        while (i < endIndex) {
             arr0 [i-beginIndex]= charAt(arr, i);
             i++;
         }
@@ -198,8 +206,9 @@ public class ArrCharOps {
     if one of them longer then th other so the loop of hash run util the last char of the shorter  */
     // to put the arrs in hash code and to checks the n */
     public static int compareTo(String str1, String str2) {
-        str1 = str1.toLowerCase();
-        str2 = str2.toLowerCase();
+        if (str2.length() == 0 || str1.length() ==0 ) {
+            return -2;
+        }
         char [] arr1 = new char [str1.length()];
         char [] arr2 = new char [str2.length()];
         if (arr1.length == arr2.length) {
