@@ -16,7 +16,7 @@ public class Primes {
         System.out.println("There are 1 primes between 2 and 2 (100% are primes)");
        }
        else if (n > 2) {
-        System.out.println("Prime numbers up to " + n);
+        System.out.println("Prime numbers up to " + n +":");
         System.out.println(2);
         int i = 3;
         int j = 2;
