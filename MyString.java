@@ -39,33 +39,34 @@ public class MyString {
     if not false
     if yes we going to next char on str2
     this time we check from the last char we found to next one if the next */
-    public static boolean contains(String str1, String str2) {
-        int i =0;
-        int j = 0;
-        String res = "";
-        if (str1.length()<str2.length()) {
-            return false;
-        }
-        while (i<str2.length()) {
-            while (j<str1.length()) {
-                if (str2.charAt(i) != str1.charAt(j)) {
-                    j++;
-                }else {
-                    res = res + str2.charAt(i);
-                    i++;
-                    j++;
-                }if (res.length()== str2.length()) {
-                    return true;
-                }
-                }i++;
-                
-            }
-            
-            
-        
+  public static boolean contains(String str1, String str2) {
+    if (str2.length() == 0) {
+        return true;
+    }
+    if (str1.length() < str2.length()) {
         return false;
     }
-    
-    
-}
 
+    // 1. לולאה שרצה על str1 (רק עד המקום שיש בו מספיק מקום ל-str2)
+    for (int i = 0; i <= str1.length() - str2.length(); i++) {
+        
+        // נניח שיש התאמה, וננסה להוכיח שלא
+        boolean match = true;
+        
+        // 2. לולאה שבודקת את str2 מול המיקום הנוכחי ב-str1
+        for (int j = 0; j < str2.length(); j++) {
+            if (str1.charAt(i + j) != str2.charAt(j)) {
+                match = false;
+                break; // ברגע שיש תו אחד לא תואם (כמו רווח), עוצרים את הבדיקה הזו
+            }
+        }
+        
+        // אם סיימנו את הלולאה הפנימית וה-match נשאר true, מצאנו!
+        if (match) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+}
