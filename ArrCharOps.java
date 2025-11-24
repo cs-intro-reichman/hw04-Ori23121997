@@ -10,16 +10,16 @@ public class ArrCharOps {
         System.out.println(charAt(arr1,2));      
         System.out.println(indexOf(arr1,'l'));  
         System.out.println(indexOf(arr1,'l',3)); 
-        System.out.println(lastIndexOf(arr1, 'l'));
+        System.out.println(lastIndexOf(arr2, 'o'));
         System.out.println(concat(arr1, arr2));
         System.out.println(subArray(arr2, 2, 9));
-        System.out.println(compareTo("abcd", "abcd"));
-        System.out.println(compareTo("abc", "abcd"));
-        System.out.println(compareTo("abw", "abcd"));
-        System.out.println(compareTo("Abcd", "a"));
-        System.out.println(compareTo("apple", "banana"));
-        System.out.println(compareTo("apple", "applepie"));
-        System.out.println(compareTo("Zoo", "zoo"));
+        System.out.println(compareTo("abcd", "aecd")); // -1
+        System.out.println(compareTo("abc", "abcd")); // -1
+        System.out.println(compareTo("abw", "abcd")); // 1
+        System.out.println(compareTo("Abcd", "a")); // 1
+        System.out.println(compareTo("apple", "banana")); // -1
+        System.out.println(compareTo("apple", "applepie")); //-1
+        System.out.println(compareTo("Zoo", "zoo")); // 0
         System.out.println(hashCode(arr1));
         System.out.println(hashCode(arr2));
     }
@@ -35,57 +35,114 @@ public class ArrCharOps {
 
     /** Returns the char value at the specified index. Assume that the array is non-empty.
      */
+    /*need to check the length of arr
+    if length arr < index error
+    retrun arr[index] */
     public static char charAt(char[] arr, int index) {
-        // Replace the following statement with your code
-        return 0;
+        if (arr.length<index) {
+            return '-'+'1';
+        }
+        return arr[index] ;
     }
 
     /** If the two arrays have the same value in every index, 
      *  returns true; Otherwise returns false.
      */
     public static boolean equals(char[] arr1, char[] arr2) {
-        // Replace the following statement with your code
-        return false;
+            if (arr1.length!=arr2.length) {
+            return false;
+            }
+            for (int i = 0; i<arr1.length;i++){
+                if (charAt(arr1,i) != charAt(arr2 , i)){
+                    return false;
+                }
+            } 
+                
+        return true;
     }
 
     /** Returns the index within the given array of the first occurrence of the given character.
      *  If no such character is found, returns -1.
      */
+    /*to get a char
+    to check if the char excits */
     public static int indexOf(char[] arr, char ch) {
-        // Replace the following statement with your code
-        return -1;
+        int i = 0 ;
+        while (charAt(arr, i)!= ch && i<arr.length) {
+            i++;
+            if (i==arr.length-1) {
+            return -1;
+        }
+        } return i;
+        
     }
 
     /** Same as indexOf(char[], char), but starts the search in the given index.
      */
     public static int indexOf(char[] arr, char ch, int fromIndex) {
-        // Replace the following statement with your code
-        return -1;
+        while (charAt(arr, fromIndex)!= ch && fromIndex<arr.length) {
+            fromIndex++;
+        }if (fromIndex==arr.length) {
+            return -1;
+        }else return fromIndex;
     }
 
     /** Returns the index within the given arr of the last occurrence of the given character.
      *  If no such character is found, returns -1.
      */
     public static int lastIndexOf(char[] arr, char ch) {
-        // Replace the following statement with your code
-        return -1;
-    }
+        int i = indexOf(arr, ch);
+        if (i==-1){
+            return -1;
+        }
+        if (i !=-1 ) {
+            i = indexOf(arr, ch, i+1);
+            if (i == -1) {
+                return -1;
+            }
+        }return i;
+            
+        }
+    
 
     /* Returns an array which is the concatanation of the two given arrays.
     */
+   /*i need the size of the two arrys to combined them and to make a new arry 
+   i need to add each char from arr1 and then arr2*/
     public static char[] concat(char[] arr1, char[] arr2) {
-        // Replace the following statement with your code
-        return null;
-    }
+        int len1 = arr1.length;
+        int len2 = arr2.length;
+        int tot = len1+len2;
+        char [] arr3 = new char[tot];
+        int i = 0;
+        while (i<len1) {
+            arr3[i] = charAt(arr1, i);
+            i++;
+        }i = 0;
+        while (i<len2) {
+            arr3 [i+len1] = charAt(arr2, i);
+            i++;
+        }return arr3;
+        }
+    
 
     /** Returns a new array that can be described as a sub-array of this array.
      *  The sub-array begins at the specified beginIndex and extends to the character at index endIndex - 1.
      *  For example, if arr contains the characters "hamburger", then subArray(4, 8) returns an array of
      *  characters containing the characters "urge".
-     */     
+     */ 
+    /*i need to make new arry and to add only beginindex until endindex-1 */
     public static char[] subArray(char[] arr, int beginIndex, int endIndex) {
-        // Replace the following statement with your code
-        return null;
+        if (endIndex > arr.length) {
+            return null;
+        }
+        int i = beginIndex;
+        char [] arr0 = new char[endIndex-beginIndex];
+        while (i < endIndex-1) {
+            arr0 [i-beginIndex]= charAt(arr, i);
+            i++;
+        }
+        return arr0;
     }
 
      /** Returns a single integer that represents the given array. This integer is sometimes 
@@ -94,10 +151,21 @@ public class ArrCharOps {
      *  The hash code is computed as: arr[0]*7^(n-1) + arr[1]*7^(n-2) + ... + arr[n-2]*7 + arr[n-1]
      *  where arr[i] is the i'th character of the array, and n is the array's length.
      *  The hash value of an empty array is zero.
-     */
+     *i need to check if arr length >0
+     than to take each char and make it ascii
+     than to multi it by 7 power arr.length-i; i=1 */
     public static long hashCode(char[] arr) {
-        // Replace the following statement with your code
-        return 0;
+        if (arr.length == 0) {
+            return 0;
+        }
+        long res = 0;
+        for (int i = 1 ; i<=arr.length;i++){
+            double a = (int) charAt(arr, i-1);
+            a = a*(Math.pow(7, arr.length-i));
+            res+=a;
+        }
+
+        return res;
     }
 
     /**
@@ -125,8 +193,60 @@ public class ArrCharOps {
      *         lexicographically greater than str2.
      *         return -2 if there is an error with the input.
      */
+    //*to create to arr from the strings
+    /*to check lenght of this two
+    if one of them longer then th other so the loop of hash run util the last char of the shorter  */
+    // to put the arrs in hash code and to checks the n */
     public static int compareTo(String str1, String str2) {
-        // Replace the following statement with your code
-        return 0;
-    }
-}
+        str1 = str1.toLowerCase();
+        str2 = str2.toLowerCase();
+        char [] arr1 = new char [str1.length()];
+        char [] arr2 = new char [str2.length()];
+        if (arr1.length == arr2.length) {
+            for (int i =0; i<arr1.length;i++){
+                arr1[i] = str1.charAt(i);
+                arr2[i] = str2.charAt(i);
+            }
+            for (int i = 0; i<arr1.length;i++){
+                if (charAt(arr1, i) == charAt(arr2,i)) {
+                }
+                else if ((int)charAt(arr2, i)>(int)charAt(arr1, i)) {
+                    return -1;
+              }
+                    else if ((int)charAt(arr2, i)<(int)charAt(arr1, i)) {
+                        return 1;
+                    }else return 0;
+                }
+                    
+                }
+                else if (arr1.length > arr2.length) {
+                    for (int i =0; i<arr2.length;i++){
+                    arr1[i] = str1.charAt(i);
+                    arr2[i] = str2.charAt(i);
+                }
+                for (int i=0 ; i<arr2.length; i++){
+                    if (hashCode(arr2)==hashCode(arr1)) {
+                        return 1;                        
+                    }else if ((int)charAt(arr2, i)>(int)charAt(arr1, i)) {
+                        return -1;
+                    }else if ((int)charAt(arr2, i)<(int)charAt(arr1, i)) {
+                        return 1;
+                    }
+                }return 1;
+            }else if (arr1.length < arr2.length) {
+                for (int i =0; i<arr1.length;i++){
+                    arr1[i] = str1.charAt(i);
+                    arr2[i] = str2.charAt(i);
+            }
+            for (int i=0 ; i<arr1.length; i++){
+                    if (hashCode(arr2)==hashCode(arr1)) {
+                        return -1;                        
+                    }else if ((int)charAt(arr2, i)>(int)charAt(arr1, i)) {
+                        return -1;
+                    }else if ((int)charAt(arr2, i)<(int)charAt(arr1, i)) {
+                        return 1;
+                    }
+                }return -1;
+            
+        }return 0;
+    }}
