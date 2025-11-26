@@ -14,17 +14,45 @@ public class MyString {
         System.out.println(contains("personality", "son")); // true
         System.out.println(contains("personality", "dad")); // false
         System.out.println(contains("resignation", "sign")); // true
+    
     }
 
     /** Returns the lowercase version of the given string. */
     public static String lowerCase(String str) {
-        // Replace the following statement with your code
-        return null;
+        String newStr = "";
+        for (int i = 0 ; i<str.length();i++){
+            if (((int)str.charAt(i) < 123 && (int)str.charAt(i) > 96) || (int)str.charAt(i)>31 && 
+         (int)str.charAt(i) < 65) {
+                newStr = newStr+str.charAt(i);
+            }else if ((int)str.charAt(i) < 91 && (int)str.charAt(i) > 64) {
+                int j = (int)str.charAt(i)+32;
+                newStr = newStr + (char)j;
+
+            }
+        }
+        return newStr;
     }
 
-    /** If str1 contains str2, returns true; otherwise returns false. */
-    public static boolean contains(String str1, String str2) {
-        // Replace the following statement with your code
+
+  public static boolean contains(String str1, String str2) {
+        if (str2.length() == 0) {
+            return true;
+        }
+        for (int i = 0; i <= str1.length() - str2.length(); i++) {
+            if (str1.charAt(i) == str2.charAt(0)) {
+                
+                boolean match = true;
+                for (int j = 1; j < str2.length(); j++) {
+                    if (str1.charAt(i + j) != str2.charAt(j)) {
+                        match = false;
+                        break;
+                    }
+                }
+                if (match) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 }

@@ -55,17 +55,17 @@ public class TesterArrayCharOps {
         char[] empty_arr = {};
         char[] arr1 = "You are a wizard Harry.".toCharArray();
 
-        boolean test1 = ArrCharOps.indexOf(arr1, 'w') == 10;
-        boolean test2 = ArrCharOps.indexOf(arr1, 'w', 5) == 10;
-        boolean test3 = ArrCharOps.indexOf(arr1, 'w', 12) == -1;
-        boolean test4 = ArrCharOps.indexOf(arr1, 'G') == -1;
+         boolean test1 = ArrCharOps.indexOf(arr1, 'w') == 10;
+         boolean test2 = ArrCharOps.indexOf(arr1, 'w', 5) == 10;
+         boolean test3 = ArrCharOps.indexOf(arr1, 'w', 12) == -1;
+         boolean test4 = ArrCharOps.indexOf(arr1, 'G') == -1;
         boolean test5 = ArrCharOps.indexOf(empty_arr, 'w') == -1;
 
         boolean test6 = ArrCharOps.lastIndexOf(arr1, 'r') == 20;
         boolean test7 = ArrCharOps.lastIndexOf(arr1, 'B') == -1;
 
         int passed = (test1 ? 1 : 0) + (test2 ? 1 : 0) + (test3 ? 1 : 0) + (test4 ? 1 : 0) +
-                     (test5 ? 1 : 0) + (test6 ? 1 : 0) + (test7 ? 1 : 0);
+        (test5 ? 1 : 0) + (test6 ? 1 : 0) + (test7 ? 1 : 0);
         String verdict = passed == num_tests ? "(Passed)": "Failed";
 
         System.out.println("Passed " + passed + "/" + num_tests + " tests " + verdict);
